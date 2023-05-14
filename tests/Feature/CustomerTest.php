@@ -23,4 +23,17 @@ class CustomerTest extends TestCase
         $customer = Customer::factory()->create();
         $this->assertModelExists($customer);
     }
+
+    /**
+     * @test
+     *
+     * Test if the route to list customers exists.
+     *
+     * @return void
+     */
+    public function route_to_list_customers_must_exist(): void
+    {
+        $response = $this->get('/api/customers');
+        $response->assertStatus(200);
+    }
 }
