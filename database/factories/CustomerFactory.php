@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +17,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'cnpj' => fake()->cnpj(),
+            'cnpj'         => fake()->cnpj(),
             'razao_social' => fake()->company(),
             'contact_name' => fake()->name(),
-            'telephone' => fake()->phoneNumber()
+            'telephone'    => fake()->phoneNumber()
         ];
     }
 }
