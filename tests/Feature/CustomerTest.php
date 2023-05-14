@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -35,5 +36,18 @@ class CustomerTest extends TestCase
     {
         $response = $this->get('/api/customers');
         $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     *
+     * Test if can get all customers.
+     *
+     * @return void
+     */
+    public function it_should_get_all_customers(): void
+    {
+        $response = $this->getJson('/api/customers');
+        $response->assertJson(fn(AssertableJson $json) => $json->has('customers'));
     }
 }
