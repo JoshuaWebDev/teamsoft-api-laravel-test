@@ -16,6 +16,9 @@ class AddressFactory extends Factory
      */
     public function definition(): array
     {
+        // $latitude  = fake()->numberBetween(1, 90);
+        // $longitude = fake()->numberBetween(1, 180);
+
         return [
             'streetName'       => fake()->streetName(),
             'buildingNumber'   => fake()->buildingNumber(),
