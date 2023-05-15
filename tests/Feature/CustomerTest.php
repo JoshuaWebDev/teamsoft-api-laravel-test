@@ -50,4 +50,44 @@ class CustomerTest extends TestCase
         $response = $this->getJson('/api/customers');
         $response->assertJson(fn(AssertableJson $json) => $json->has('customers'));
     }
+
+    /**
+     * @test
+     *
+     * Test if can get a customers.
+     *
+     * @return void
+     */
+    public function it_should_get_a_customer(): void
+    {
+        $customer = Customer::create([
+            'cnpj'         => '98.765.432/0001-01',
+            'razao_social' => 'ACME S.A.',
+            'contact_name' => 'John Doe',
+            'telephone'    => '(11) 98765-4321'
+        ]);
+
+        $response = $this->getJson('/api/customers/' . $customer->id);
+
+        $response->assertJson(fn(AssertableJson $json) =>
+            $json->where('cnpj', '98.765.432/0001-01')
+                 ->where('razao_social', 'ACME S.A.')
+                 ->where('contact_name', 'John Doe')
+                 ->where('telephone', '(11) 98765-4321')
+                 ->etc()
+        );
+    }
+
+    /**
+     * @test
+     *
+     * Test relationship between customers and addresses.
+     *
+     * @return void
+     */
+    // public function it_should_get_all_addresses_from_a_customer(): void
+    // {
+    //     $response = $this->getJson('/api/customers');
+    //     $response->assertJson(fn(AssertableJson $json) => $json->has('customers'));
+    // }
 }
