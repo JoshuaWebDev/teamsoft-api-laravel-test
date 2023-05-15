@@ -16,8 +16,8 @@ class Customer extends Model
      */
     protected $fillable = [
         'cnpj',
-        'razao_social',
-        'contact_name',
-        'telephone'
+        'razaoSocial',
+        'contactName',
+        'phoneNumber'
     ];
 }

@@ -20,9 +20,9 @@ class CustomerTest extends TestCase
 
         $expected = [
             'cnpj',
-            'razao_social',
-            'contact_name',
-            'telephone'
+            'razaoSocial',
+            'contactName',
+            'phoneNumber'
         ];
 
         $this->assertEquals($expected, $customer->getFillable());

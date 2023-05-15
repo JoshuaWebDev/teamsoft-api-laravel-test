@@ -17,10 +17,10 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'cnpj'         => fake()->cnpj(),
-            'razao_social' => fake()->company(),
-            'contact_name' => fake()->name(),
-            'telephone'    => fake()->phoneNumber()
+            'cnpj'        => fake()->cnpj(),
+            'razaoSocial' => fake()->company(),
+            'contactName' => fake()->name(),
+            'phoneNumber' => fake()->phoneNumber()
         ];
     }
 }

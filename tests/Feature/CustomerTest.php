@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Address;
 use App\Models\Customer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -62,18 +63,18 @@ class CustomerTest extends TestCase
     {
         $customer = Customer::create([
             'cnpj'         => '98.765.432/0001-01',
-            'razao_social' => 'ACME S.A.',
-            'contact_name' => 'John Doe',
-            'telephone'    => '(11) 98765-4321'
+            'razaoSocial'  => 'ACME S.A.',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(11) 98765-4321'
         ]);
 
         $response = $this->getJson('/api/customers/' . $customer->id);
 
         $response->assertJson(fn(AssertableJson $json) =>
             $json->where('cnpj', '98.765.432/0001-01')
-                 ->where('razao_social', 'ACME S.A.')
-                 ->where('contact_name', 'John Doe')
-                 ->where('telephone', '(11) 98765-4321')
+                 ->where('razaoSocial', 'ACME S.A.')
+                 ->where('contactName', 'John Doe')
+                 ->where('phoneNumber', '(11) 98765-4321')
                  ->etc()
         );
     }
@@ -87,7 +88,33 @@ class CustomerTest extends TestCase
      */
     // public function it_should_get_all_addresses_from_a_customer(): void
     // {
+    //     $address = Address::create([
+    //         'streetName'       => 'Alameda dos Anjos',
+    //         'buildingNumber'   => '123',
+    //         'secondaryAddress' => 'Apto. 12',
+    //         'neighborhood'     => 'Jardim Felicidade',
+    //         'city'             => 'Cidade dos Anjos',
+    //         'state'            => '',
+    //         'postcode'         => '',
+    //         'latitude'         => '',
+    //         'longitude'        => ''
+    //     ]);
+
+    //     $customer = Customer::create([
+    //         'cnpj'         => '98.765.432/0001-01',
+    //         'razao_social' => 'ACME S.A.',
+    //         'contact_name' => 'John Doe',
+    //         'telephone'    => '(11) 98765-4321'
+    //     ]);
+
     //     $response = $this->getJson('/api/customers');
-    //     $response->assertJson(fn(AssertableJson $json) => $json->has('customers'));
+
+    //     $response->assertJson(fn(AssertableJson $json) =>
+    //         $json->where('cnpj', '98.765.432/0001-01')
+    //              ->where('razao_social', 'ACME S.A.')
+    //              ->where('contact_name', 'John Doe')
+    //              ->where('telephone', '(11) 98765-4321')
+    //              ->etc()
+    //     );
     // }
 }
