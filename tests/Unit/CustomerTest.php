@@ -16,6 +16,7 @@ class CustomerTest extends TestCase
      */
     public function customer_fields_should_be_fillable(): void
     {
+        /** @var Customer $customer */
         $customer = new Customer();
 
         $expected = [

@@ -12,7 +12,9 @@ class AddressController extends Controller
      */
     public function index()
     {
+        /** @var Address $address */
         $addresses = Address::all();
+
         return response()->json(['addresses' => $addresses]);
     }
 

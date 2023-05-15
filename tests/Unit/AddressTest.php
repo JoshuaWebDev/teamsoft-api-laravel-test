@@ -16,6 +16,7 @@ class AddressTest extends TestCase
      */
     public function address_fields_should_be_fillable(): void
     {
+        /** @var Address $address */
         $address = new Address();
 
         $expected = [

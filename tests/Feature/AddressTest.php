@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Address;
+use App\Models\Customer;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,7 +22,14 @@ class AddressTest extends TestCase
      */
     public function address_model_must_exist(): void
     {
-        $address = Address::factory()->create();
+        /** @var Customer $customer */
+        $customer = Customer::factory()
+                            ->create();
+
+        /** @var Address $address */
+        $address = Address::factory()
+                          ->create(['customerId' => $customer->id]);
+
         $this->assertModelExists($address);
     }
 
@@ -49,5 +57,30 @@ class AddressTest extends TestCase
     {
         $response = $this->getJson('/api/addresses');
         $response->assertJson(fn(AssertableJson $json) => $json->has('addresses'));
+    }
+
+    /**
+     * @test
+     *
+     * Test relationship between customers and addresses.
+     *
+     * @return void
+     */
+    public function one_or_more_addresses_must_belong_to_a_customer(): void
+    {
+        /** @var Customer $customer */
+        $customer = Customer::factory()->create();
+
+        /** @var Address $address */
+        $addresses  = Address::factory()
+                             ->for(Customer::factory()->create([
+                                'cnpj'         => '98.765.432/0001-01',
+                                'razaoSocial'  => 'ACME S.A.',
+                                'contactName'  => 'John Doe',
+                                'phoneNumber'  => '(11) 98765-4321'
+                             ]))
+                             ->create();
+
+        $this->assertInstanceOf(Customer::class, $addresses->customer);
     }
 }

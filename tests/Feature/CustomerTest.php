@@ -22,7 +22,10 @@ class CustomerTest extends TestCase
      */
     public function customer_model_must_exist(): void
     {
-        $customer = Customer::factory()->create();
+        /** @var Customer $customer */
+        $customer = Customer::factory()
+                            ->create();
+
         $this->assertModelExists($customer);
     }
 
@@ -61,6 +64,7 @@ class CustomerTest extends TestCase
      */
     public function it_should_get_a_customer(): void
     {
+        /** @var Customer $customer */
         $customer = Customer::create([
             'cnpj'         => '98.765.432/0001-01',
             'razaoSocial'  => 'ACME S.A.',
@@ -86,35 +90,13 @@ class CustomerTest extends TestCase
      *
      * @return void
      */
-    // public function it_should_get_all_addresses_from_a_customer(): void
-    // {
-    //     $address = Address::create([
-    //         'streetName'       => 'Alameda dos Anjos',
-    //         'buildingNumber'   => '123',
-    //         'secondaryAddress' => 'Apto. 12',
-    //         'neighborhood'     => 'Jardim Felicidade',
-    //         'city'             => 'Cidade dos Anjos',
-    //         'state'            => '',
-    //         'postcode'         => '',
-    //         'latitude'         => '',
-    //         'longitude'        => ''
-    //     ]);
+    public function a_customer_can_have_several_addresses(): void
+    {
+        /** @var Customer $customer */
+        $customer  = Customer::factory()
+                             ->has(Address::factory()->count(2))
+                             ->create();
 
-    //     $customer = Customer::create([
-    //         'cnpj'         => '98.765.432/0001-01',
-    //         'razao_social' => 'ACME S.A.',
-    //         'contact_name' => 'John Doe',
-    //         'telephone'    => '(11) 98765-4321'
-    //     ]);
-
-    //     $response = $this->getJson('/api/customers');
-
-    //     $response->assertJson(fn(AssertableJson $json) =>
-    //         $json->where('cnpj', '98.765.432/0001-01')
-    //              ->where('razao_social', 'ACME S.A.')
-    //              ->where('contact_name', 'John Doe')
-    //              ->where('telephone', '(11) 98765-4321')
-    //              ->etc()
-    //     );
-    // }
+        $this->assertEquals(2, $customer->addresses->count());
+    }
 }
