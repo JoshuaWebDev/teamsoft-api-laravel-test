@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
 
 class CustomerController extends Controller
@@ -31,8 +34,30 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        Customer::create($request->all());
-        return redirect()->route('customers.index');
+        $validator = Validator::make($request->all(), [
+            'cnpj'        => 'required|unique:customers',
+            'razaoSocial' => 'required',
+            'contactName' => 'required',
+            'phoneNumber' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return response()->json(
+                [
+                    'message' => 'Can not is possible save the',
+                    'errors'  => $errors
+                ]
+            );
+        }
+
+        $validated = $validator->validated();
+
+        /** @var Customer $customer */
+        $customer = Customer::create($validated);
+
+        return redirect()->route('customers.show', ['customer' => $customer]);
     }
 
     /**

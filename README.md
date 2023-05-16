@@ -75,10 +75,10 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 
 **Clientes**
 
-- [ ] CNPJ (Obrigatório)
-- [ ] Razão Social (Obrigatório)
-- [ ] Nome do Contato (Obrigatório)
-- [ ] Telefone (Obrigatório)
+- [x] CNPJ (Obrigatório e único)
+- [x] Razão Social (Obrigatório)
+- [x] Nome do Contato (Obrigatório)
+- [x] Telefone (Obrigatório)
 
 **Endereços**
 

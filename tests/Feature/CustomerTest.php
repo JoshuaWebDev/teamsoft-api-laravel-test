@@ -116,9 +116,7 @@ class CustomerTest extends TestCase
             'phoneNumber'  => '(11) 98765-4321'
         ];
 
-        $request = $this->post(route('customers.store'), $customer);
-
-        $request->assertRedirect(route('customers.index'));
+        $response = $this->post(route('customers.store'), $customer);
 
         $this->assertDatabaseHas('customers', [
             'cnpj'         => '98.765.432/0001-01',
@@ -126,5 +124,26 @@ class CustomerTest extends TestCase
             'contactName'  => 'John Doe',
             'phoneNumber'  => '(11) 98765-4321'
         ]);
+    }
+
+    /**
+     * @test
+     *
+     * checks if return a error message if validation fails.
+     *
+     * @return void
+     */
+    public function it_should_return_a_error_message_if_validation_fails(): void
+    {
+        $customer = [
+            'cnpj'         => '',
+            'razaoSocial'  => '',
+            'contactName'  => '',
+            'phoneNumber'  => ''
+        ];
+
+        $response = $this->post(route('customers.store'), $customer);
+
+        $response->assertJsonFragment(['message' => 'Can not is possible save the']);
     }
 }
