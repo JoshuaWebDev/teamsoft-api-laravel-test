@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('streetName');
             $table->string('buildingNumber');
-            $table->string('secondaryAddress');
+            $table->string('secondaryAddress')->nullable();
             $table->string('neighborhood');
             $table->string('city');
             $table->string('state');
             $table->string('postcode');
-            $table->string('latitude');
-            $table->string('longitude');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
         });
     }

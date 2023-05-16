@@ -70,3 +70,21 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 
 - [x] Um cliente possui vários Endereços
 - [x] Um endereço pertence a um único cliente
+
+### Validations
+
+**Clientes**
+
+- [ ] CNPJ (Obrigatório)
+- [ ] Razão Social (Obrigatório)
+- [ ] Nome do Contato (Obrigatório)
+- [ ] Telefone (Obrigatório)
+
+**Endereços**
+
+- [ ] Logradouro (Obrigatório)
+- [ ] Número (Obrigatório)
+- [ ] Bairro (Obrigatório)
+- [ ] Cidade (Obrigatório)
+- [ ] Estado (Obrigatório)
+- [ ] CEP (Obrigatório)
