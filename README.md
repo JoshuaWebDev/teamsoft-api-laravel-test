@@ -53,20 +53,20 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 
 #### Clientes
 
-[x] INDEX
-[x] SHOW
-[x] STORE
-[] EDIT
-[] DELETE
+- [x] INDEX
+- [x] SHOW
+- [x] STORE
+- [ ] EDIT
+- [ ] DELETE
 #### Endereços
 
-[x] INDEX
-[x] SHOW
-[x] STORE
-[] EDIT
-[] DELETE
+- [x] INDEX
+- [x] SHOW
+- [x] STORE
+- [ ] EDIT
+- [ ] DELETE
 
 #### Relationships
 
-[x] Um cliente possui vários Endereços
-[x] Um endereço pertence a um único cliente
+- [x] Um cliente possui vários Endereços
+- [x] Um endereço pertence a um único cliente
