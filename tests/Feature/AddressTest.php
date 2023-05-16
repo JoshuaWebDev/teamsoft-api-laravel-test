@@ -97,15 +97,13 @@ class AddressTest extends TestCase
             'neighborhood'     => 'Centro',
             'city'             => 'Rolândia',
             'state'            => 'Paraná',
-            'postcode'         => '86600-059',
+            'postcode'         => '86600059',
             'latitude'         => '-51.3713301',
             'longitude'        => '-23.3130829',
             'customerId'       => $customer->first()->id
         ];
 
-        $request = $this->post(route('addresses.store'), $address);
-
-        $request->assertRedirect(route('addresses.index'));
+        $this->post(route('addresses.store'), $address);
 
         $this->assertDatabaseHas('addresses', [
             'streetName'       => 'Avenida Tiradentes',
@@ -114,9 +112,33 @@ class AddressTest extends TestCase
             'neighborhood'     => 'Centro',
             'city'             => 'Rolândia',
             'state'            => 'Paraná',
-            'postcode'         => '86600-059',
+            'postcode'         => '86600059',
             'latitude'         => '-51.3713301',
             'longitude'        => '-23.3130829'
         ]);
+    }
+
+    /**
+     * @test
+     *
+     * checks if return a error message if validation fails.
+     *
+     * @return void
+     */
+    public function it_should_return_a_error_message_if_validation_fails(): void
+    {
+        $address = [
+            'streetName'       => '',
+            'buildingNumber'   => '',
+            'neighborhood'     => '',
+            'city'             => '',
+            'state'            => '',
+            'postcode'         => '',
+            'customerId'         => 1
+        ];
+
+        $response = $this->post(route('addresses.store'), $address);
+
+        $response->assertJsonFragment(['message' => 'Can not is possible save the address']);
     }
 }

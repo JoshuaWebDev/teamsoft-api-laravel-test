@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
 
@@ -46,16 +45,14 @@ class CustomerController extends Controller
 
             return response()->json(
                 [
-                    'message' => 'Can not is possible save the',
+                    'message' => 'Can not is possible save the customer',
                     'errors'  => $errors
                 ]
             );
         }
 
-        $validated = $validator->validated();
-
         /** @var Customer $customer */
-        $customer = Customer::create($validated);
+        $customer = Customer::create($request->all());
 
         return redirect()->route('customers.show', ['customer' => $customer]);
     }

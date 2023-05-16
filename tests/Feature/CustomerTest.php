@@ -116,7 +116,7 @@ class CustomerTest extends TestCase
             'phoneNumber'  => '(11) 98765-4321'
         ];
 
-        $response = $this->post(route('customers.store'), $customer);
+        $this->post(route('customers.store'), $customer);
 
         $this->assertDatabaseHas('customers', [
             'cnpj'         => '98.765.432/0001-01',
@@ -144,6 +144,6 @@ class CustomerTest extends TestCase
 
         $response = $this->post(route('customers.store'), $customer);
 
-        $response->assertJsonFragment(['message' => 'Can not is possible save the']);
+        $response->assertJsonFragment(['message' => 'Can not is possible save the customer']);
     }
 }

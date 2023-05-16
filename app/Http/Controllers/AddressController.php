@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Address;
 
 class AddressController extends Controller
@@ -31,9 +32,31 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        Address::create($request->all());
+        $validator = Validator::make($request->all(), [
+            'streetName'       => 'required',
+            'buildingNumber'   => 'required|numeric',
+            'neighborhood'     => 'required',
+            'city'             => 'required',
+            'state'            => 'required',
+            'postcode'         => 'required|numeric',
+            'customerId'       => 'required|numeric'
+        ]);
 
-        return redirect()->route('addresses.index');
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return response()->json(
+                [
+                    'message' => 'Can not is possible save the address',
+                    'errors'  => $errors
+                ]
+            );
+        }
+
+        /** @var Address $address */
+        $address = Address::create($request->all());
+
+        return redirect()->route('addresses.show', ['address' => $address]);
     }
 
     /**
@@ -41,7 +64,8 @@ class AddressController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $address = Address::find($id);
+        return response()->json($address);
     }
 
     /**

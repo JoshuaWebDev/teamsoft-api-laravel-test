@@ -82,9 +82,9 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 
 **Endereços**
 
-- [ ] Logradouro (Obrigatório)
-- [ ] Número (Obrigatório)
-- [ ] Bairro (Obrigatório)
-- [ ] Cidade (Obrigatório)
-- [ ] Estado (Obrigatório)
-- [ ] CEP (Obrigatório)
+- [x] Logradouro (Obrigatório)
+- [x] Número (Obrigatório e numérico)
+- [x] Bairro (Obrigatório)
+- [x] Cidade (Obrigatório)
+- [x] Estado (Obrigatório)
+- [x] CEP (Obrigatório e numérico)
