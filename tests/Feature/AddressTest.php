@@ -42,7 +42,7 @@ class AddressTest extends TestCase
      */
     public function route_to_list_addresses_must_exist(): void
     {
-        $response = $this->get('/api/addresses');
+        $response = $this->get(route('addresses.index'));
         $response->assertStatus(200);
     }
 
@@ -55,7 +55,7 @@ class AddressTest extends TestCase
      */
     public function it_should_get_all_addresses(): void
     {
-        $response = $this->getJson('/api/addresses');
+        $response = $this->getJson(route('addresses.index'));
         $response->assertJson(fn(AssertableJson $json) => $json->has('addresses'));
     }
 
@@ -73,14 +73,50 @@ class AddressTest extends TestCase
 
         /** @var Address $address */
         $addresses  = Address::factory()
-                             ->for(Customer::factory()->create([
-                                'cnpj'         => '98.765.432/0001-01',
-                                'razaoSocial'  => 'ACME S.A.',
-                                'contactName'  => 'John Doe',
-                                'phoneNumber'  => '(11) 98765-4321'
-                             ]))
+                             ->for($customer)
                              ->create();
 
         $this->assertInstanceOf(Customer::class, $addresses->customer);
+    }
+
+    /**
+     * @test
+     *
+     * checks if can create a address.
+     *
+     * @return void
+     */
+    public function it_should_possible_create_a_address(): void
+    {
+        $customer = Customer::factory()->create();
+
+        $address = [
+            'streetName'       => 'Avenida Tiradentes',
+            'buildingNumber'   => '957',
+            'secondaryAddress' => '2º Andar',
+            'neighborhood'     => 'Centro',
+            'city'             => 'Rolândia',
+            'state'            => 'Paraná',
+            'postcode'         => '86600-059',
+            'latitude'         => '-51.3713301',
+            'longitude'        => '-23.3130829',
+            'customerId'       => $customer->first()->id
+        ];
+
+        $request = $this->post(route('addresses.store'), $address);
+
+        $request->assertRedirect(route('addresses.index'));
+
+        $this->assertDatabaseHas('addresses', [
+            'streetName'       => 'Avenida Tiradentes',
+            'buildingNumber'   => '957',
+            'secondaryAddress' => '2º Andar',
+            'neighborhood'     => 'Centro',
+            'city'             => 'Rolândia',
+            'state'            => 'Paraná',
+            'postcode'         => '86600-059',
+            'latitude'         => '-51.3713301',
+            'longitude'        => '-23.3130829'
+        ]);
     }
 }

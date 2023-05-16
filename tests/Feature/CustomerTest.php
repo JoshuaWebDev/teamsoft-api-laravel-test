@@ -16,7 +16,7 @@ class CustomerTest extends TestCase
     /**
      * @test
      *
-     * Test if customer model exists.
+     * Checks if customer model exists.
      *
      * @return void
      */
@@ -32,33 +32,33 @@ class CustomerTest extends TestCase
     /**
      * @test
      *
-     * Test if the route to list customers exists.
+     * Checks if the route to list customers exists.
      *
      * @return void
      */
     public function route_to_list_customers_must_exist(): void
     {
-        $response = $this->get('/api/customers');
+        $response = $this->get(route('customers.index'));
         $response->assertStatus(200);
     }
 
     /**
      * @test
      *
-     * Test if can get all customers.
+     * Checks if can get all customers.
      *
      * @return void
      */
     public function it_should_get_all_customers(): void
     {
-        $response = $this->getJson('/api/customers');
+        $response = $this->getJson(route('customers.index'));
         $response->assertJson(fn(AssertableJson $json) => $json->has('customers'));
     }
 
     /**
      * @test
      *
-     * Test if can get a customers.
+     * Checks if can get a customer.
      *
      * @return void
      */
@@ -72,7 +72,7 @@ class CustomerTest extends TestCase
             'phoneNumber'  => '(11) 98765-4321'
         ]);
 
-        $response = $this->getJson('/api/customers/' . $customer->id);
+        $response = $this->getJson(route('customers.show', ['customer' => $customer->id]));
 
         $response->assertJson(fn(AssertableJson $json) =>
             $json->where('cnpj', '98.765.432/0001-01')
@@ -86,7 +86,7 @@ class CustomerTest extends TestCase
     /**
      * @test
      *
-     * Test relationship between customers and addresses.
+     * Checks if relationship between customers and addresses exist.
      *
      * @return void
      */
@@ -98,5 +98,33 @@ class CustomerTest extends TestCase
                              ->create();
 
         $this->assertEquals(2, $customer->addresses->count());
+    }
+
+    /**
+     * @test
+     *
+     * checks if can create a customer.
+     *
+     * @return void
+     */
+    public function it_should_possible_create_a_customer(): void
+    {
+        $customer = [
+            'cnpj'         => '98.765.432/0001-01',
+            'razaoSocial'  => 'ACME S.A.',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(11) 98765-4321'
+        ];
+
+        $request = $this->post(route('customers.store'), $customer);
+
+        $request->assertRedirect(route('customers.index'));
+
+        $this->assertDatabaseHas('customers', [
+            'cnpj'         => '98.765.432/0001-01',
+            'razaoSocial'  => 'ACME S.A.',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(11) 98765-4321'
+        ]);
     }
 }

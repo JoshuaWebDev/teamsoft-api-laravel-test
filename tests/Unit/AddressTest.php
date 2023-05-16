@@ -28,7 +28,8 @@ class AddressTest extends TestCase
             'state',            // estado
             'postcode',         // CEP
             'latitude',
-            'longitude'
+            'longitude',
+            'customerId'
         ];
 
         $this->assertEquals($expected, $address->getFillable());

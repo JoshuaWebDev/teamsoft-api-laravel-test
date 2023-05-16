@@ -24,7 +24,8 @@ class Address extends Model
         'state',            // estado
         'postcode',         // CEP
         'latitude',
-        'longitude'
+        'longitude',
+        'customerId'
     ];
 
     /**

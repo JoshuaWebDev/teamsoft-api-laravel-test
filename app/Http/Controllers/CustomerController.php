@@ -31,7 +31,8 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Customer::create($request->all());
+        return redirect()->route('customers.index');
     }
 
     /**
