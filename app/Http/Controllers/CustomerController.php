@@ -79,7 +79,27 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'cnpj'        => 'required|unique:customers',
+            'razaoSocial' => 'required',
+            'contactName' => 'required',
+            'phoneNumber' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return response()->json(
+                [
+                    'message' => 'Can not is possible update the customer',
+                    'errors'  => $errors
+                ]
+            );
+        }
+
+        $customer = Customer::where('id', $id)->update($request->all());
+
+        return redirect()->route('customers.show', ['customer' => $customer]);
     }
 
     /**

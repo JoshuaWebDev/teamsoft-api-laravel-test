@@ -129,6 +129,40 @@ class CustomerTest extends TestCase
     /**
      * @test
      *
+     * Checks if can update a customer.
+     *
+     * @return void
+     */
+    public function it_should_update_a_customer(): void
+    {
+        /** @var Customer $customer */
+        $oldCustomer = Customer::create([
+            'cnpj'         => '98.765.432/0001-01',
+            'razaoSocial'  => 'ACME S.A.',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(11) 98765-4321'
+        ]);
+
+        $newCustomer = [
+            'cnpj'         => '98.765.432/0001-02',
+            'razaoSocial'  => 'ACME ME',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(21) 98765-4321'
+        ];
+
+        $this->putJson(route('customers.update', ['customer' => $oldCustomer->id]), $newCustomer);
+
+        $this->assertDatabaseHas('customers', [
+            'cnpj'         => '98.765.432/0001-02',
+            'razaoSocial'  => 'ACME ME',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(21) 98765-4321'
+        ]);
+    }
+
+    /**
+     * @test
+     *
      * checks if return a error message if validation fails.
      *
      * @return void
