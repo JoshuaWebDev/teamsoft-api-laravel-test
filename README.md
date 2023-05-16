@@ -56,14 +56,14 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 - [x] INDEX
 - [x] SHOW
 - [x] STORE
-- [ ] EDIT
+- [x] EDIT
 - [ ] DELETE
 #### Endereços
 
 - [x] INDEX
 - [x] SHOW
 - [x] STORE
-- [ ] EDIT
+- [x] EDIT
 - [ ] DELETE
 
 #### Relationships

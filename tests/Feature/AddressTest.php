@@ -121,6 +121,52 @@ class AddressTest extends TestCase
     /**
      * @test
      *
+     * Checks if can update a address.
+     *
+     * @return void
+     */
+    public function it_should_update_a_address(): void
+    {
+        /** @var Customer $customer */
+        $customer = Customer::factory()->create();
+
+        /** @var Address $address */
+        $oldAddress = Address::create([
+            'streetName'       => 'Avenida Tiradentes',
+            'buildingNumber'   => '957',
+            'neighborhood'     => 'Centro',
+            'city'             => 'Rolândia',
+            'state'            => 'Paraná',
+            'postcode'         => '86600059',
+            'customerId'       => $customer->id
+        ]);
+
+        $newAddress = [
+            'streetName'       => 'Rua da Acácias',
+            'buildingNumber'   => '987',
+            'neighborhood'     => 'Centro',
+            'city'             => 'Rolândia',
+            'state'            => 'Paraná',
+            'postcode'         => '86500590',
+            'customerId'       => $customer->id
+        ];
+
+        $this->putJson(route('addresses.update', ['address' => $oldAddress->id]), $newAddress);
+
+        $this->assertDatabaseHas('addresses', [
+            'streetName'       => 'Rua da Acácias',
+            'buildingNumber'   => '987',
+            'neighborhood'     => 'Centro',
+            'city'             => 'Rolândia',
+            'state'            => 'Paraná',
+            'postcode'         => '86500590',
+            'customerId'       => $customer->id
+        ]);
+    }
+
+    /**
+     * @test
+     *
      * checks if return a error message if validation fails.
      *
      * @return void

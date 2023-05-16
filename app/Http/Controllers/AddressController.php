@@ -81,7 +81,30 @@ class AddressController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'streetName'       => 'required',
+            'buildingNumber'   => 'required|numeric',
+            'neighborhood'     => 'required',
+            'city'             => 'required',
+            'state'            => 'required',
+            'postcode'         => 'required|numeric',
+            'customerId'       => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return response()->json(
+                [
+                    'message' => 'Can not is possible update the address',
+                    'errors'  => $errors
+                ]
+            );
+        }
+
+        $address = Address::where('id', $id)->update($request->all());
+
+        return redirect()->route('addresses.show', ['address' => $address]);
     }
 
     /**
