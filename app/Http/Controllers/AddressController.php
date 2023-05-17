@@ -112,6 +112,6 @@ class AddressController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Address::destroy($id);
     }
 }

@@ -49,24 +49,26 @@ O desafio consiste em:
 
 Suba seu projeto no github de forma pública e envie o link no [formulário](https://forms.gle/XTgmwXbvHUZhgygu7) com seus dados.Este teste é apenas para quem se inscreveu no processo de seleção.
 
-### Checklist
+-------------------------------------------------------------------------------------------------------------------------------
 
-#### Clientes
+## Checklist
+
+### Clientes
 
 - [x] INDEX
 - [x] SHOW
 - [x] STORE
 - [x] EDIT
 - [x] DELETE
-#### Endereços
+### Endereços
 
 - [x] INDEX
 - [x] SHOW
 - [x] STORE
 - [x] EDIT
-- [ ] DELETE
+- [x] DELETE
 
-#### Relationships
+### Relationships
 
 - [x] Um cliente possui vários Endereços
 - [x] Um endereço pertence a um único cliente
@@ -90,7 +92,7 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 - [x] CEP (Obrigatório e numérico)
 
 ## Breakpoints
-#### Clientes
+### Clientes
 
 | URI                 | MÉTODO  | DESCRIÇÃO                                |
 |--------------------|---------|-------------------------------------------|
@@ -99,7 +101,7 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 | api/customers/{id} | GET     | Exibe detalhes de um cliente específico   |
 | api/customers/{id} | PUT     | Altera os dados de um cliente             |
 | api/customers/{id} | DELETE  | Remove um cliente                         |
-#### Endereços
+### Endereços
 
 | URI                 | MÉTODO  | DESCRIÇÃO                                |
 |---------------------|---------|------------------------------------------|

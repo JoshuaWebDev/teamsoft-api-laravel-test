@@ -167,6 +167,35 @@ class AddressTest extends TestCase
     /**
      * @test
      *
+     * checks if can delete a address.
+     *
+     * @return void
+     */
+    public function it_should_possible_delete_a_address(): void
+    {
+        /** @var Customer $customer */
+        $customer = Customer::factory()->create();
+
+        /** @var Address $address */
+        $address = Address::create([
+            'streetName'       => 'Avenida Tiradentes',
+            'buildingNumber'   => '957',
+            'secondaryAddress' => '2º Andar',
+            'neighborhood'     => 'Centro',
+            'city'             => 'Rolândia',
+            'state'            => 'Paraná',
+            'postcode'         => '86600059',
+            'customerId'       => $customer->first()->id
+        ]);
+
+        $this->deleteJson(route('addresses.destroy', ['address' => $address->id]));
+
+        $this->assertSoftDeleted($address);
+    }
+
+    /**
+     * @test
+     *
      * checks if return a error message if validation fails.
      *
      * @return void
