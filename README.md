@@ -57,7 +57,7 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 - [x] SHOW
 - [x] STORE
 - [x] EDIT
-- [ ] DELETE
+- [x] DELETE
 #### Endereços
 
 - [x] INDEX
@@ -88,3 +88,23 @@ Suba seu projeto no github de forma pública e envie o link no [formulário](htt
 - [x] Cidade (Obrigatório)
 - [x] Estado (Obrigatório)
 - [x] CEP (Obrigatório e numérico)
+
+## Breakpoints
+#### Clientes
+
+| URI                 | MÉTODO  | DESCRIÇÃO                                |
+|--------------------|---------|-------------------------------------------|
+| api/customers      | GET     | Lista os clientes                         |
+| api/customers      | POST    | Cria um cliente                           |
+| api/customers/{id} | GET     | Exibe detalhes de um cliente específico   |
+| api/customers/{id} | PUT     | Altera os dados de um cliente             |
+| api/customers/{id} | DELETE  | Remove um cliente                         |
+#### Endereços
+
+| URI                 | MÉTODO  | DESCRIÇÃO                                |
+|---------------------|---------|------------------------------------------|
+| /api/addresses      | GET     | Lista os endereços                       |
+| /api/addresses      | POST    | Cria um endereço                         |
+| /api/addresses/{id} | GET     | Exibe detalhes de um endereço específico |
+| /api/addresses/{id} | PUT     | Altera os dados de um endereço           |
+| /api/addresses/{id} | DELETE  | Remove um endereço                       |

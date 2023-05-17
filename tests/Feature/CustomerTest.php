@@ -163,6 +163,28 @@ class CustomerTest extends TestCase
     /**
      * @test
      *
+     * checks if can delete a customer.
+     *
+     * @return void
+     */
+    public function it_should_possible_delete_a_customer(): void
+    {
+        /** @var Customer $customer */
+        $customer = Customer::create([
+            'cnpj'         => '98.765.432/0001-01',
+            'razaoSocial'  => 'ACME S.A.',
+            'contactName'  => 'John Doe',
+            'phoneNumber'  => '(11) 98765-4321'
+        ]);
+
+        $this->deleteJson(route('customers.destroy', ['customer' => $customer->id]));
+
+        $this->assertSoftDeleted($customer);
+    }
+
+    /**
+     * @test
+     *
      * checks if return a error message if validation fails.
      *
      * @return void

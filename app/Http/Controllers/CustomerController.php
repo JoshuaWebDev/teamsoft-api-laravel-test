@@ -107,6 +107,6 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Customer::destroy($id);
     }
 }
